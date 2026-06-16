@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aqyldy Bala — Оқу Орталығы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Oswald', sans-serif; background: #fff; color: #1a1a2e; margin: 0; }
+ 
+  :root {
+    --orange: #FF6B00;
+    --orange-dark: #e05a00;
+    --orange-light: #fff3e8;
+    --dark: #1a1a2e;
+    --slate: #2d3250;
+    --gray: #6b7280;
+    --light: #f9fafb;
+  }
+ 
+  /* HEADER */
+  .header { background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; min-height: 72px; }
+ 
+  .logo-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .logo-text-block .brand { font-size: 1.5rem; font-weight: 700; color: var(--orange); letter-spacing: 1px; line-height: 1; }
+  .logo-text-block .sub { font-size: 0.65rem; font-weight: 400; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; }
+ 
+  nav { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  nav a { color: var(--slate); font-size: 0.85rem; font-weight: 500; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
+  nav a:hover { color: var(--orange); background: var(--orange-light); }
+ 
+  .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+  .lang-switcher { display: flex; background: var(--light); border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; }
+  .lang-btn { padding: 6px 14px; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--gray); }
+  .lang-btn.active { background: var(--orange); color: #fff; }
+  .phone-link { color: var(--slate); font-size: 0.85rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .phone-link:hover { color: var(--orange); }
+  .cta-btn { background: var(--orange); color: #fff; font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 0.85rem; padding: 8px 18px; border-radius: 8px; text-decoration: none; white-space: nowrap; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .cta-btn:hover { background: var(--orange-dark); transform: translateY(-1px); }
+ 
+  /* MOBILE NAV TOGGLE */
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--slate); }
+  .mobile-nav { display: none; width: 100%; padding: 12px 0 16px; border-top: 1px solid #f0f0f0; }
+  .mobile-nav.open { display: block; }
+  .mobile-nav a { display: block; color: var(--slate); font-size: 1rem; font-weight: 500; text-decoration: none; padding: 10px 4px; border-bottom: 1px solid #f5f5f5; }
+  .mobile-nav a:hover { color: var(--orange); }
+ 
+  /* HERO */
+  .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--slate) 60%, #3a3f6e 100%); color: #fff; padding: 90px 20px 80px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; background: var(--orange); opacity: 0.12; border-radius: 50%; }
+  .hero::after { content: ''; position: absolute; bottom: -60px; left: -60px; width: 300px; height: 300px; background: var(--orange); opacity: 0.07; border-radius: 50%; }
+  .hero-inner { max-width: 800px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+  .hero-badge { display: inline-block; background: rgba(255,107,0,0.2); border: 1px solid rgba(255,107,0,0.5); color: #ffb380; font-size: 0.78rem; font-weight: 600; letter-spacing: 2px; padding: 5px 16px; border-radius: 20px; margin-bottom: 20px; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 700; line-height: 1.1; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 1px; }
+  .hero h1 span { color: var(--orange); }
+  .hero p { font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 300; opacity: 0.85; max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; padding: 16px 36px; border-radius: 50px; text-decoration: none; transition: all 0.25s; box-shadow: 0 8px 30px rgba(255,107,0,0.4); letter-spacing: 0.5px; }
+  .hero-cta:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255,107,0,0.5); }
+  .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 50px; flex-wrap: wrap; }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-size: 2rem; font-weight: 700; color: var(--orange); }
+  .hero-stat .lbl { font-size: 0.8rem; font-weight: 400; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+ 
+  /* SECTIONS */
+  .section { padding: 70px 20px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag { display: inline-block; background: var(--orange-light); color: var(--orange); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; padding: 4px 14px; border-radius: 20px; text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; color: var(--dark); line-height: 1.2; margin: 0 0 8px; text-transform: uppercase; }
+  .section-sub { color: var(--gray); font-size: 1rem; font-weight: 300; margin: 0 0 40px; max-width: 560px; line-height: 1.6; }
+ 
+  /* WHY US */
+  .why-bg { background: var(--light); }
+  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+  .benefit-card { background: #fff; border-radius: 16px; padding: 28px 24px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; transition: transform 0.2s, box-shadow 0.2s; }
+  .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+  .benefit-icon { width: 52px; height: 52px; background: var(--orange-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .benefit-icon svg { width: 26px; height: 26px; color: var(--orange); stroke: var(--orange); }
+  .benefit-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin: 0 0 8px; }
+  .benefit-card p { font-size: 0.88rem; font-weight: 300; color: var(--gray); line-height: 1.6; margin: 0; }
+ 
+  /* COURSES */
+  .child-switcher { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+  .child-btn { padding: 10px 22px; border-radius: 30px; border: 2px solid var(--orange); background: #fff; color: var(--orange); font-family: 'Oswald', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .child-btn.active { background: var(--orange); color: #fff; }
+  .child-btn:hover:not(.active) { background: var(--orange-light); }
+  .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .course-card { background: #fff; border-radius: 16px; padding: 24px 20px; border: 2px solid #f0f0f0; box-shadow: 0 2px 12px rgba(0,0,0,0.05); transition: all 0.2s; position: relative; overflow: hidden; }
+  .course-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--orange); }
+  .course-card:hover { border-color: var(--orange); box-shadow: 0 8px 28px rgba(255,107,0,0.15); }
+  .course-emoji { font-size: 2rem; margin-bottom: 10px; }
+  .course-name { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin: 0 0 6px; }
+  .course-price { font-size: 1.7rem; font-weight: 700; color: var(--orange); margin: 10px 0 4px; }
+  .course-price span { font-size: 0.85rem; font-weight: 400; color: var(--gray); }
+  .course-detail { font-size: 0.78rem; font-weight: 300; color: var(--gray); line-height: 1.5; }
+  .course-bonus { margin-top: 8px; background: var(--orange-light); color: var(--orange); font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+ 
+  /* TEACHERS */
+  .teachers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+  .teacher-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #f0f0f0; transition: transform 0.2s, box-shadow 0.2s; }
+  .teacher-card:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(0,0,0,0.13); }
+  .teacher-img-wrap { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: var(--orange-light); position: relative; }
+  .teacher-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .teacher-body { padding: 20px 18px; }
+  .teacher-name { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin: 0 0 4px; }
+  .teacher-role { font-size: 0.82rem; font-weight: 500; color: var(--orange); margin: 0 0 8px; }
+  .teacher-exp { font-size: 0.8rem; font-weight: 300; color: var(--gray); line-height: 1.5; }
+ 
+  /* TESTIMONIALS */
+  .reviews-bg { background: var(--light); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .review-card { background: #fff; border-radius: 16px; padding: 24px 20px; box-shadow: 0 2px 14px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
+  .review-stars { color: #fbbf24; font-size: 1.1rem; margin-bottom: 12px; }
+  .review-text { font-size: 0.9rem; font-weight: 300; color: var(--slate); line-height: 1.65; margin: 0 0 16px; font-style: italic; }
+  .review-author { font-size: 0.85rem; font-weight: 700; color: var(--dark); }
+  .review-role { font-size: 0.75rem; color: var(--gray); font-weight: 300; }
+ 
+  /* FOOTER */
+  footer { background: var(--dark); color: #fff; padding: 50px 20px 30px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 36px; margin-bottom: 36px; }
+  .footer-brand .name { font-size: 1.5rem; font-weight: 700; color: var(--orange); letter-spacing: 1px; }
+  .footer-brand .tagline { font-size: 0.82rem; color: rgba(255,255,255,0.5); font-weight: 300; margin-top: 6px; line-height: 1.5; }
+  .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin: 0 0 16px; }
+  .footer-col p, .footer-col a { font-size: 0.88rem; font-weight: 300; color: rgba(255,255,255,0.75); text-decoration: none; display: block; margin-bottom: 8px; line-height: 1.5; }
+  .footer-col a:hover { color: var(--orange); }
+  .footer-social { display: flex; gap: 12px; margin-top: 8px; }
+  .social-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); transition: all 0.2s; text-decoration: none; }
+  .social-btn:hover { background: var(--orange); border-color: var(--orange); color: #fff; }
+  .social-btn svg { width: 18px; height: 18px; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.35); font-weight: 300; margin: 0; }
+ 
+  /* ADDRESS */
+  .address-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
+  .address-item svg { width: 16px; height: 16px; color: var(--orange); flex-shrink: 0; margin-top: 2px; }
+ 
+  /* WHATSAPP FLOAT */
+  .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; }
+  .wa-float a { display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: #25d366; border-radius: 50%; box-shadow: 0 6px 20px rgba(37,211,102,0.45); transition: transform 0.2s; }
+  .wa-float a:hover { transform: scale(1.1); }
+  .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+ 
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .menu-toggle { display: flex; align-items: center; }
+    nav { display: none; }
+    .header-inner { min-height: 60px; }
+    .hero { padding: 60px 20px 50px; }
+    .hero-stats { gap: 24px; }
+  }
+  @media (min-width: 769px) {
+    .mobile-nav { display: none !important; }
+    nav { display: flex !important; }
+    .menu-toggle { display: none !important; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- ===== FLOATING WHATSAPP ===== -->
+<div class="wa-float">
+  <a href="https://wa.me/+77787111100" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+ 
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-inner">
+    <!-- LOGO: Place logo.png in the same folder as index.html -->
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Aqyldy Bala Logo" style="height:52px;width:auto;object-fit:contain;" onerror="this.style.display='none'" />
+      <div class="logo-text-block">
+        <div class="brand">AQYLDY BALA</div>
+        <div class="sub" data-kk="Оқу Орталығы" data-ru="Учебный Центр">Оқу Орталығы</div>
+      </div>
+    </div>
+ 
+    <!-- DESKTOP NAV -->
+    <nav>
+      <a href="#why" data-kk="Неге біз?" data-ru="Почему мы?">Неге біз?</a>
+      <a href="#courses" data-kk="Курстар" data-ru="Курсы">Курстар</a>
+      <a href="#teachers" data-kk="Мұғалімдер" data-ru="Учителя">Мұғалімдер</a>
+      <a href="#reviews" data-kk="Пікірлер" data-ru="Отзывы">Пікірлер</a>
+      <a href="#contact" data-kk="Байланыс" data-ru="Контакты">Байланыс</a>
+    </nav>
+ 
+    <!-- RIGHT SIDE -->
+    <div class="header-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('kk')">KAZ</button>
+        <button class="lang-btn" onclick="setLang('ru')">RUS</button>
+      </div>
+      <a href="tel:+77787111100" class="phone-link">+7 778 711 11 00</a>
+      <a href="https://wa.me/+77787111100" target="_blank" class="cta-btn" data-kk="Жазылу" data-ru="Записаться">Жазылу</a>
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+ 
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <div style="max-width:1200px;margin:0 auto;padding:0 20px;">
+      <a href="#why" onclick="toggleMenu()" data-kk="Неге біз?" data-ru="Почему мы?">Неге біз?</a>
+      <a href="#courses" onclick="toggleMenu()" data-kk="Курстар" data-ru="Курсы">Курстар</a>
+      <a href="#teachers" onclick="toggleMenu()" data-kk="Мұғалімдер" data-ru="Учителя">Мұғалімдер</a>
+      <a href="#reviews" onclick="toggleMenu()" data-kk="Пікірлер" data-ru="Отзывы">Пікірлер</a>
+      <a href="#contact" onclick="toggleMenu()" data-kk="Байланыс" data-ru="Контакты">Байланыс</a>
+    </div>
+  </div>
+</header>
+ 
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge" data-kk="Ақтаудың үздік оқу орталығы" data-ru="Лучший учебный центр Актау">Ақтаудың үздік оқу орталығы</div>
+    <h1 data-kk="<span style='color:var(--orange)'>Балаңыздың</span> болашағы<br>біздің қолымызда" data-ru="Будущее <span style='color:var(--orange)'>вашего ребёнка</span><br>в наших руках"><span style="color:var(--orange)">Балаңыздың</span> болашағы<br>біздің қолымызда</h1>
+    <p data-kk="Математика, ағылшын, қазақ және орыс тілдері — кәсіби мұғалімдермен жеке тәсілмен оқыту. МАД дайындығы да бар!" data-ru="Математика, английский, казахский и русский языки — профессиональные педагоги, индивидуальный подход. Подготовка к школе (МАД) тоже доступна!">Математика, ағылшын, қазақ және орыс тілдері — кәсіби мұғалімдермен жеке тәсілмен оқыту. МАД дайындығы да бар!</p>
+    <a href="https://wa.me/+77787111100" target="_blank" class="hero-cta">
+      <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span data-kk="WhatsApp арқылы жазылу" data-ru="Записаться в WhatsApp">WhatsApp арқылы жазылу</span>
+    </a>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">9+</div>
+        <div class="lbl" data-kk="жыл тәжірибе" data-ru="лет опыта">жыл тәжірибе</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">5</div>
+        <div class="lbl" data-kk="курс бағыты" data-ru="направления">курс бағыты</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">200+</div>
+        <div class="lbl" data-kk="бақытты оқушы" data-ru="довольных учеников">бақытты оқушы</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">2</div>
+        <div class="lbl" data-kk="орталық мекен-жайы" data-ru="адреса центра">орталық мекен-жайы</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ===== WHY US ===== -->
+<section class="section why-bg" id="why">
+  <div class="section-inner">
+    <div class="section-tag" data-kk="Артықшылықтарымыз" data-ru="Наши преимущества">Артықшылықтарымыз</div>
+    <h2 class="section-title" data-kk="Неге Aqyldy Bala?" data-ru="Почему Aqyldy Bala?">Неге Aqyldy Bala?</h2>
+    <p class="section-sub" data-kk="Біз тек оқытып қана қоймаймыз — баланың ақыл-ойын дамытып, жарқын болашаққа жол ашамыз." data-ru="Мы не просто учим — мы развиваем интеллект ребёнка и открываем путь к светлому будущему.">Біз тек оқытып қана қоймаймыз — баланың ақыл-ойын дамытып, жарқын болашаққа жол ашамыз.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 data-kk="Кәсіби педагогтар" data-ru="Профессиональные педагоги">Кәсіби педагогтар</h3>
+        <p data-kk="Тәжірибелі мұғалімдер мен тіл өкілінің бірлескен оқытуы. Әрбір бала жеке назарда." data-ru="Совместное обучение опытных педагогов и носителя языка. Каждый ребёнок под индивидуальным вниманием.">Тәжірибелі мұғалімдер мен тіл өкілінің бірлескен оқытуы. Әрбір бала жеке назарда.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 data-kk="Ыңғайлы кесте" data-ru="Удобное расписание">Ыңғайлы кесте</h3>
+        <p data-kk="Күнделікті сабақтар, икемді уақыт кестесі — баланың мектеп бағдарламасымен үйлесімді." data-ru="Ежедневные занятия, гибкое расписание — в гармонии со школьной программой ребёнка.">Күнделікті сабақтар, икемді уақыт кестесі — баланың мектеп бағдарламасымен үйлесімді.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 data-kk="Шағын топтар" data-ru="Малые группы">Шағын топтар</h3>
+        <p data-kk="Шағын топтарда оқыту әрбір балаға тиімді, жеке тәсілмен нәтижені жылдам арттырады." data-ru="Обучение в малых группах обеспечивает индивидуальный подход и быстрый прогресс каждого ребёнка.">Шағын топтарда оқыту әрбір балаға тиімді, жеке тәсілмен нәтижені жылдам арттырады.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 data-kk="Нақты нәтиже" data-ru="Реальный результат">Нақты нәтиже</h3>
+        <p data-kk="Ата-аналар алғашқы айдан-ақ нәтиже байқайды. 200+ бақытты оқушы — ең жақсы дәлел!" data-ru="Родители замечают результат уже с первого месяца. 200+ довольных учеников — лучшее доказательство!">Ата-аналар алғашқы айдан-ақ нәтиже байқайды. 200+ бақытты оқушы — ең жақсы дәлел!</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ===== COURSES ===== -->
+<section class="section" id="courses">
+  <div class="section-inner">
+    <div class="section-tag" data-kk="Курстар мен бағалар" data-ru="Курсы и цены">Курстар мен бағалар</div>
+    <h2 class="section-title" data-kk="Курстарымыз" data-ru="Наши курсы">Курстарымыз</h2>
+    <p class="section-sub" data-kk="Балалар санына қарай жеңілдіктер қарастырылған. Дұрыс санды таңдаңыз:" data-ru="Предусмотрены скидки в зависимости от количества детей. Выберите нужное количество:">Балалар санына қарай жеңілдіктер қарастырылған. Дұрыс санды таңдаңыз:</p>
+ 
+    <!-- Child Switcher -->
+    <div class="child-switcher">
+      <button class="child-btn active" onclick="setChild(1,this)" data-kk="1 бала" data-ru="1 ребенок">1 бала</button>
+      <button class="child-btn" onclick="setChild(2,this)" data-kk="2 бала" data-ru="2 ребенка">2 бала</button>
+      <button class="child-btn" onclick="setChild(3,this)" data-kk="2+ бала" data-ru="2+ ребенка">2+ бала</button>
+    </div>
+ 
+    <div class="courses-grid" id="coursesGrid">
+      <!-- Dynamically rendered by JS -->
+    </div>
+  </div>
+</section>
+ 
+<!-- ===== TEACHERS ===== -->
+<section class="section why-bg" id="teachers">
+  <div class="section-inner">
+    <div class="section-tag" data-kk="Біздің команда" data-ru="Наша команда">Біздің команда</div>
+    <h2 class="section-title" data-kk="Біздің мұғалімдер" data-ru="Наши учителя">Біздің мұғалімдер</h2>
+    <p class="section-sub" data-kk="Тәжірибелі, жылы жүректі педагогтар баланың дамуына толықтай берілген." data-ru="Опытные и душевные педагоги полностью преданы развитию каждого ребёнка.">Тәжірибелі, жылы жүректі педагогтар баланың дамуына толықтай берілген.</p>
+ 
+    <div class="teachers-grid">
+      <!-- TEACHER 1: Place teacher1.jpg in the same folder as index.html -->
+      <div class="teacher-card">
+        <div class="teacher-img-wrap">
+          <img src="teacher1.jpeg" alt="Айнұр Асқарқызы" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#fff3e8,#ffd4b0)';this.style.display='none'" />
+        </div>
+        <div class="teacher-body">
+          <div class="teacher-name">Айнұр Асқарқызы</div>
+          <div class="teacher-role" data-kk="Бастауыш мұғалімі • Орталық негізін қалаушы" data-ru="Учитель начальных классов • Основатель центра">Бастауыш мұғалімі • Орталық негізін қалаушы</div>
+          <div class="teacher-exp" data-kk="Білім беруден 9 жыл тәжірибе. Оқу орталығының жүрегі мен негізі." data-ru="9 лет педагогического опыта. Сердце и основа учебного центра.">Білім беруден 9 жыл тәжірибе. Оқу орталығының жүрегі мен негізі.</div>
+        </div>
+      </div>
+ 
+      <!-- TEACHER 2: Place teacher2.jpg in the same folder as index.html -->
+      <div class="teacher-card">
+        <div class="teacher-img-wrap">
+          <img src="teacher2.png" alt="Mr. Solomon" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#fff3e8,#ffd4b0)';this.style.display='none'" />
+        </div>
+        <div class="teacher-body">
+          <div class="teacher-name">Mr. Solomon</div>
+          <div class="teacher-role" data-kk="Тіл өкілі • Ағылшын мұғалімі" data-ru="Носитель языка • Учитель английского">Тіл өкілі • Ағылшын мұғалімі</div>
+          <div class="teacher-exp" data-kk="7 жыл тәжірибе. Ағылшын тілін нативті деңгейде үйретеді." data-ru="7 лет опыта. Преподаёт английский язык на нативном уровне.">7 жыл тәжірибе. Ағылшын тілін нативті деңгейде үйретеді.</div>
+        </div>
+      </div>
+ 
+      <!-- TEACHER 3: Place teacher3.jpg in the same folder as index.html -->
+      <div class="teacher-card">
+        <div class="teacher-img-wrap">
+          <img src="teacher3.jpeg" alt="Есқали Айнұр" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#fff3e8,#ffd4b0)';this.style.display='none'" />
+        </div>
+        <div class="teacher-body">
+          <div class="teacher-name">Есқали Айнұр</div>
+          <div class="teacher-role" data-kk="Бастауыш мұғалімі" data-ru="Учитель начальных классов">Бастауыш мұғалімі</div>
+          <div class="teacher-exp" data-kk="Балалармен жұмыс жасауда үлкен жіберімпаздық пен шыдамдылық." data-ru="Большое терпение и любовь в работе с детьми.">Балалармен жұмыс жасауда үлкен жіберімпаздық пен шыдамдылық.</div>
+        </div>
+      </div>
+ 
+      <!-- TEACHER 4: Place teacher4.jpg in the same folder as index.html -->
+      <div class="teacher-card">
+        <div class="teacher-img-wrap">
+          <img src="teacher4.png" alt="Бекбосынова Гүлназ" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#fff3e8,#ffd4b0)';this.style.display='none'" />
+        </div>
+        <div class="teacher-body">
+          <div class="teacher-name">Бекбосынова Гүлназ</div>
+          <div class="teacher-role" data-kk="Бастауыш мұғалімі" data-ru="Учитель начальных классов">Бастауыш мұғалімі</div>
+          <div class="teacher-exp" data-kk="Баланың оқуға деген ынтасын дамытатын шабытты педагог." data-ru="Вдохновляющий педагог, развивающий в детях любовь к знаниям.">Баланың оқуға деген ынтасын дамытатын шабытты педагог.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section reviews-bg" id="reviews">
+  <div class="section-inner">
+    <div class="section-tag" data-kk="Ата-аналар пікірі" data-ru="Отзывы родителей">Ата-аналар пікірі</div>
+    <h2 class="section-title" data-kk="Пікірлер" data-ru="Отзывы">Пікірлер</h2>
+    <p class="section-sub" data-kk="Балаларының өсуін бақылаған ата-аналардың шынайы пікірлері." data-ru="Искренние отзывы родителей, наблюдающих прогресс своих детей.">Балаларының өсуін бақылаған ата-аналардың шынайы пікірлері.</p>
+ 
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text" data-kk="«Өте керемет оқыту орталығы, еріншек баламның оқуға құштарлығын оятты.»" data-ru="«Потрясающий учебный центр, пробудил в моём ленивом ребёнке жажду к знаниям.»">«Өте керемет оқыту орталығы, еріншек баламның оқуға құштарлығын оятты.»</p>
+        <div class="review-author">Айгерим Котлеуова</div>
+        <div class="review-role" data-kk="Ата-ана" data-ru="Родитель">Ата-ана</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text" data-kk="«Ақылды бала оқу орталығы өте жақсы. Жақсыгүл апайға көп рахмет, баламды жақсы дайындап жатыр.»" data-ru="«Учебный центр "Ақылды Бала" очень хорош. Большое спасибо Жақсыгүл-апай — отлично готовит моего ребёнка.»">«Ақылды бала оқу орталығы өте жақсы. Жақсыгүл апайға көп рахмет, баламды жақсы дайындап жатыр.»</p>
+        <div class="review-author">Жансая Бақыт</div>
+        <div class="review-role" data-kk="Ата-ана" data-ru="Родитель">Ата-ана</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text" data-kk="«Ақылды Бала оқу орталығына балам барады. Ағылшыннан нәтижесі өте керемет. Қазіргі уақытта тіл өкілімен өтеді. Балаларға қызықты сабақ.»" data-ru="«Мой ребёнок ходит в "Ақылды Бала". Результаты по английскому превосходные. Сейчас занятия с носителем языка — детям очень интересно.»">«Ақылды Бала оқу орталығына балам барады. Ағылшыннан нәтижесі өте керемет. Қазіргі уақытта тіл өкілімен өтеді. Балаларға қызықты сабақ.»</p>
+        <div class="review-author">Гүлмира Құрымбай</div>
+        <div class="review-role" data-kk="Ата-ана" data-ru="Родитель">Ата-ана</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text" data-kk="«Қызымды 3 сыныпқа дайындау мақсатында апарып жүрмін. Айнұр апайымыз мықты маман екені алғашқы сабақтарынан-ақ көрініп бастады. Қызым қазір еркін оқиды, әдемі жазады. Айнұр апайға көп-көп рахмет.»" data-ru="«Вожу дочь готовиться к 3 классу. С первых уроков стало видно, что Айнур-апай — сильный специалист. Дочь теперь читает свободно и красиво пишет. Огромное спасибо Айнур-апай.»">«Қызымды 3 сыныпқа дайындау мақсатында апарып жүрмін. Айнұр апайымыз мықты маман екені алғашқы сабақтарынан-ақ көрініп бастады. Қызым қазір еркін оқиды, әдемі жазады. Айнұр апайға көп-көп рахмет.»</p>
+        <div class="review-author">Майра</div>
+        <div class="review-role" data-kk="Ата-ана" data-ru="Родитель">Ата-ана</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ===== CONTACT / FOOTER ===== -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">AQYLDY BALA</div>
+        <p class="tagline" data-kk="Балаңыздың жарқын болашағы — біздің миссиямыз." data-ru="Светлое будущее вашего ребёнка — наша миссия.">Балаңыздың жарқын болашағы — біздің миссиямыз.</p>
+        <div class="footer-social" style="margin-top:16px;">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/aqyldy_1bala?igsh=Mnprb2huNGZ4ZXFn" target="_blank" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/+77787111100" target="_blank" class="social-btn" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+ 
+      <div class="footer-col">
+        <h4 data-kk="Байланыс" data-ru="Контакты">Байланыс</h4>
+        <a href="tel:+77787111100">+7 778 711 11 00</a>
+        <p data-kk="Жұмыс уақыты:" data-ru="Время работы:">Жұмыс уақыты:</p>
+        <p style="color:#FF6B00; font-weight:600;">9:00 — 18:00</p>
+        <p data-kk="Күн сайын (демалыссыз)" data-ru="Ежедневно (без выходных)">Күн сайын (демалыссыз)</p>
+      </div>
+ 
+      <div class="footer-col">
+        <h4 data-kk="Мекен-жайлар" data-ru="Адреса">Мекен-жайлар</h4>
+        <div class="address-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <p style="margin:0;" data-kk="Ақтау қаласы, 19 шағынаудан, 14 үй" data-ru="г. Актау, 19 мкр, дом 14">Ақтау қаласы, 19 шағынаудан, 14 үй</p>
+        </div>
+        <div class="address-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <p style="margin:0;" data-kk="Ақтау қаласы, 38 шағынаудан, 1 үй" data-ru="г. Актау, 38 мкр, дом 1">Ақтау қаласы, 38 шағынаудан, 1 үй</p>
+        </div>
+      </div>
+ 
+      <div class="footer-col">
+        <h4 data-kk="Жылдам сілтемелер" data-ru="Быстрые ссылки">Жылдам сілтемелер</h4>
+        <a href="#why" data-kk="Неге біз?" data-ru="Почему мы?">Неге біз?</a>
+        <a href="#courses" data-kk="Курстар" data-ru="Курсы">Курстар</a>
+        <a href="#teachers" data-kk="Мұғалімдер" data-ru="Учителя">Мұғалімдер</a>
+        <a href="#reviews" data-kk="Пікірлер" data-ru="Отзывы">Пікірлер</a>
+        <a href="https://wa.me/+77787111100" target="_blank" data-kk="WhatsApp арқылы жазылу" data-ru="Записаться в WhatsApp">WhatsApp арқылы жазылу</a>
+      </div>
+    </div>
+ 
+    <div class="footer-bottom">
+      <p>© 2024 Aqyldy Bala. <span data-kk="Барлық құқықтар қорғалған." data-ru="Все права защищены.">Барлық құқықтар қорғалған.</span></p>
+      <p data-kk="Ақтау қаласы, Қазақстан" data-ru="г. Актау, Казахстан">Ақтау қаласы, Қазақстан</p>
+    </div>
+  </div>
+</footer>
+ 
+<script>
+// ===================================================
+// LANGUAGE SYSTEM
+// ===================================================
+let currentLang = 'kk';
+ 
+function setLang(lang) {
+  currentLang = lang;
+  // Update all lang-btn active states
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim() === (lang === 'kk' ? 'KAZ' : 'RUS'));
+  });
+  // Update all data-kk / data-ru elements
+  document.querySelectorAll('[data-kk]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (val !== null) el.innerHTML = val;
+  });
+  // Update child buttons (they also need switching)
+  renderCourses();
+}
+ 
+// ===================================================
+// MOBILE MENU
+// ===================================================
+function toggleMenu() {
+  const nav = document.getElementById('mobileNav');
+  nav.classList.toggle('open');
+}
+ 
+// ===================================================
+// COURSES DATA
+// ===================================================
+const courses = [
+  {
+    emoji: '📐',
+    name_kk: 'Математика курсы',
+    name_ru: 'Курс математики',
+    prices: [35000, 30000, 27000],
+    detail_kk: 'Аптасына 5 сабақ, 2 сағаттан',
+    detail_ru: '5 раз в неделю, по 2 часа',
+    bonus_kk: null,
+    bonus_ru: null
+  },
+  {
+    emoji: '🏫',
+    name_kk: 'МАД (Мектеп алды даярлық)',
+    name_ru: 'МАД (Подготовка к школе)',
+    prices: [40000, 35000, 32000],
+    detail_kk: 'Аптасына 5 сабақ, 2 сағаттан',
+    detail_ru: '5 раз в неделю, по 2 часа',
+    bonus_kk: null,
+    bonus_ru: null
+  },
+  {
+    emoji: '🇬🇧',
+    name_kk: 'Ағылшын тілі курсы',
+    name_ru: 'Курс английского языка',
+    prices: [35000, 30000, 27000],
+    detail_kk: 'Аптасына 4 рет, 1.30 сағаттан',
+    detail_ru: '4 раза в неделю, по 1.30 часа',
+    bonus_kk: 'БОНУС: 4-ші сабақ тіл өкілімен!',
+    bonus_ru: 'БОНУС: 4-й урок с носителем языка!'
+  },
+  {
+    emoji: '🇰🇿',
+    name_kk: 'Қазақ тілі курсы',
+    name_ru: 'Курс казахского языка',
+    prices: [25000, 20000, 17000],
+    detail_kk: 'Аптасына 3 рет, 1.30 сағаттан',
+    detail_ru: '3 раза в неделю, по 1.30 часа',
+    bonus_kk: null,
+    bonus_ru: null
+  },
+  {
+    emoji: '🇷🇺',
+    name_kk: 'Орыс тілі курсы',
+    name_ru: 'Курс русского языка',
+    prices: [30000, 25000, 22000],
+    detail_kk: 'Аптасына 5 рет, 1.30 сағаттан',
+    detail_ru: '5 раз в неделю, по 1.30 часа',
+    bonus_kk: null,
+    bonus_ru: null
+  }
+];
+ 
+let currentChild = 0; // 0=1 child, 1=2 children, 2=2+ children
+ 
+function setChild(num, btn) {
+  currentChild = num - 1;
+  document.querySelectorAll('.child-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCourses();
+}
+ 
+function renderCourses() {
+  const grid = document.getElementById('coursesGrid');
+  const lang = currentLang;
+  grid.innerHTML = courses.map(c => {
+    const name = lang === 'kk' ? c.name_kk : c.name_ru;
+    const detail = lang === 'kk' ? c.detail_kk : c.detail_ru;
+    const bonus = lang === 'kk' ? c.bonus_kk : c.bonus_ru;
+    const price = c.prices[currentChild].toLocaleString('ru-RU');
+    return `<div class="course-card">
+      <div class="course-emoji">${c.emoji}</div>
+      <div class="course-name">${name}</div>
+      <div class="course-price">${price} <span>₸ / ${lang === 'kk' ? 'ай' : 'мес'}</span></div>
+      <div class="course-detail">${detail}</div>
+      ${bonus ? `<div class="course-bonus">${bonus}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+ 
+// ===================================================
+// INIT
+// ===================================================
+renderCourses();
+</script>
+</body>
+</html>
